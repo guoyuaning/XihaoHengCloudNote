@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.my.mapper.UserinfoMapper">
+
+    <select id="selectByUsername" resultType="com.my.pojo.Userinfo">
+        select userid,username,password,email,perms from userinfo where username = #{username}
+    </select>
+    <insert id="addUser">
+        insert into userinfo(username,password,email) values('${username}','${password}','${email}')
+    </insert>
+    <select id="selectUserinfos" resultType="com.my.pojo.Userinfo">
+        select userid,username,password,perms from userinfo
+    </select>
+    <select id="selectByAnyOne" resultType="com.my.pojo.Userinfo">
+        select userid,username,password,email from userinfo where username = #{username} or email = #{email}
+    </select>
+</mapper>

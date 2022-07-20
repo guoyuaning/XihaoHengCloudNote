@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.my.mapper.UsermsginfoMapper">
+
+    <insert id="addUsermsg">
+        insert into usermsginfo(usermsgid,userid) values(#{id},#{id})
+    </insert>
+    <select id="findbyid" resultType="com.my.pojo.Usermsginfo">
+        select usermsgid,userid,nickname,sex,age,birthday,sign,swh,grade from usermsginfo where usermsgid = #{id}
+    </select>
+
+    <update id="upateusermsg" parameterType="com.my.pojo.Usermsginfo">
+        update usermsginfo set nickname = #{nickname}, sex = #{sex}, birthday = #{birthday},sign = #{sign}, swh = #{swh} where usermsgid = #{usermsgid}
+    </update>
+
+    <delete id="delupdate">
+        delete from usermsginfo where usermsgid = #{id}
+    </delete>
+</mapper>

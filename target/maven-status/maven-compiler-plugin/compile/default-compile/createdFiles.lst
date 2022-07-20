@@ -1,0 +1,4 @@
+com\my\config\UserRealm.class
+com\my\config\ShiroController.class
+com\my\config\LoginHandlerInterceptor.class
+com\my\XiaohengnoteApplication.class

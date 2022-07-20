@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>新增</title>
+    <link rel="stylesheet" th:href="@{/css/layui.css}">
+    <script type="text/javascript" th:src = "@{/js/jquery-3.4.1.js}"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            loadDepartmentName();
+        });
+        function loadDepartmentName() {
+            $.ajax({
+                url:"package/show",
+                dataType: "json",
+                type: "post",
+                async : false,//是否异步请求
+                success: function(data){
+                    var nameOpt = "<option value='' selected='selected'>--请选择--</option>";
+                    for(var i=0;i<data.length;i++) {
+                        nameOpt+="<option value='"+data[i].packageid+"' selected='selected'>"+data[i].packagename+"</option>";
+                    }
+                    $('#packageid').html(nameOpt);
+                },
+                error: function(){}
+            });
+        }
+        //Demo
+        layui.use('form', function(){
+            var form = layui.form;
+
+            //监听提交
+            form.on('submit(formDemo)', function(data){
+                layer.msg(JSON.stringify(data.field));
+                return false;
+
+            });
+        });
+        function texLength(obj, maxlength, id) {
+            var curr = obj.value.length;
+            if (curr > maxlength) {
+                layer.msg('字数在' + maxlength + '字以内');
+            } else {
+                document.getElementById(id).innerHTML = curr;
+            }
+        }
+    </script>
+</head>
+<body>
+<br><br>
+<form class="layui-form" th:action="@{/note/add}">
+    <div class="layui-form-item">
+        <label class="layui-form-label">笔记名</label>
+        <div class="layui-input-inline">
+            <input type="text"  name="title" required lay-verify="required" placeholder="请输入笔记名" autocomplete="off" class="layui-input">
+        </div>
+        <div class="layui-form-mid layui-word-aux"><span style="color: red">(不可重复)</span></div>
+        <br>
+        <div class="layui-form-item">
+            <label class="layui-form-label">下拉选择框</label>
+            <div class="layui-input-block">
+                <select name="packageid" id = "packageid" lay-filter="aihao">
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit lay-filter="formDemo">立即添加</button>
+        </div>
+    </div>
+</form>
+<script th:src="@{/layui.js}"></script>
+</body>
+</html>

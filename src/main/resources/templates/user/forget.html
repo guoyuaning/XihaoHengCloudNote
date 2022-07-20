@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>新增</title>
+    <link rel="stylesheet" th:href="@{/css/layui.css}">
+    <script type="text/javascript" th:src="@{/js/jquery-3.4.1.js}"></script>
+    <script type="text/javascript">
+        function sendEmail(){
+            var email = document.getElementById("email").value;
+            $.ajax({
+                url:"user/doemail",
+                data:{'email':email},
+                method:'post',
+                success: function (data){
+                    alert("发送成功");
+                },
+                error: function (){
+                    alert("请求失败");
+                }
+            })
+        }
+
+        function yanForm(){
+            password = document.getElementById("password").value
+            cfmpassword = document.getElementById("cfmpassword").value
+            alert(password + "---" + cfmpassword)
+            if(password.value == cfmpassword.value){
+                alert("密码不相同，请重新输入！")
+                return false;
+            }
+            return true;
+        }
+    </script>
+</head>
+<body>
+<br><br>
+<form class="layui-form" th:action="@{/user/for}">
+    <div class="layui-form-item">
+        <label class="layui-form-label">账号</label>
+        <div class="layui-input-inline">
+            <input type="text" name="username" id = "username" required lay-verify="required" placeholder="请输入账号" autocomplete="off"
+                   class="layui-input">
+        </div>
+        <br>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">邮箱</label>
+        <div class="layui-input-inline">
+            <input type="text" name="email" id = "email" required lay-verify="required|email" placeholder="请输入邮箱" autocomplete="off"
+                   class="layui-input">
+        </div>
+        <div class="layui-form-mid layui-word-aux">
+            <button id = "btn" class="layui-btn layui-btn-sm">点击获取验证码</button>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">验证码</label>
+        <div class="layui-input-inline">
+            <input type="text" name="yzm" placeholder="请输入验证码" autocomplete="off"
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">登录密码</label>
+        <div class="layui-input-inline">
+            <input type="password" id="password" name="password" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">确认密码</label>
+        <div class="layui-input-inline">
+            <input type="password" id="cfmpassword"  class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+
+            <button class="layui-btn" type="submit" onclick="yanForm()">立即修改</button>
+        </div>
+    </div>
+</form>
+<script th:src="@{/layui.js}"></script>
+</body>
+</html>

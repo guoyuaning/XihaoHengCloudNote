@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{css/layui.css}">
+    <link th:href="@{/ueditor/themes/default/css/ueditor.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/ueditor/themes/iframe.css}" rel="stylesheet" type="text/css" />
+    <script th:src="@{ueditor/third-party/codemirror/codemirror.js}" type="text/javascript" defer="defer"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/ueditor/third-party/codemirror/codemirror.css}">
+    <script th:src="@{ueditor/third-party/zeroclipboard/ZeroClipboard.js}" type="text/javascript" defer="defer"></script>
+    <script type="text/javascript" th:src="@{ueditor/ueditor.config.js}"></script>
+    <!-- 编辑器源码文件 -->
+    <script type="text/javascript" th:src="@{ueditor/ueditor.all.js}"></script>
+    <script type="text/javascript" th:src="@{ueditor/zh-cn.js}"></script>
+    <script type="text/javascript" th:src = "@{/js/jquery-3.4.1.js}"></script>
+</head>
+<body>
+<br>
+<form th:action="@{note/add}" method="post" id="from1" onsubmit="return false">
+    <input type="hidden" id = "noteid" name = "noteid" th:value="${noteinfo.noteid}">
+    <div class="layui-input-inline">
+        <input type="text" id = "title" th:value="${noteinfo.title}" name="title" style="height: 40px;width: 1000px" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+    </div >
+    <button type="button" onclick="upd()" id = "btn" class="layui-btn layui-btn-normal">&nbsp;&nbsp;保&nbsp;存&nbsp;&nbsp;</button>
+    <button type="button" class="layui-btn"><i class="layui-icon layui-icon-share"></i></button>
+    <a onclick="Del();">
+        <button type="button" class="layui-btn layui-btn-sm layui-btn-primary">
+            <i class="layui-icon layui-icon-delete"></i>
+        </button>
+    </a>
+    <br><br>
+    <input type="hidden" id = "contenttest" th:value="${noteinfo.content}">
+    <script id="content" name="content" type="text/plain">
+        这里写你的初始化内容
+    </script>
+</form>
+<script type="text/javascript">
+    var ue = UE.getEditor('content',{
+        initialFrameHeight:580,
+        initialFrameWidth:1250,
+        toolbars: [
+            [
+                'fullscreen', 'source', '|', 'undo', 'redo', '|',
+                'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc', '|',
+                'customstyle', 'paragraph', 'fontfamily', 'fontsize', '|',
+                'directionalityltr', 'directionalityrtl', 'indent', '|',
+                'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify',
+                'insertcode', 'pagebreak',
+                'horizontal', 'date', 'time',
+                'inserttable', 'deletetable', 'insertparagraphbeforetable', 'insertrow', 'deleterow', 'insertcol', 'deletecol', 'mergecells', 'mergeright', 'mergedown', 'splittocells', 'splittorows', 'splittocols', 'charts', '|',
+                'print'
+            ]
+        ]
+    });
+    var test = $("#contenttest").val();
+    ue.addListener("ready",function (){
+        ue.setContent(test)
+    })
+    function upd(){
+        var filecontent = ue.getContent();
+        var param = {
+            "noteid": $("#noteid").val(),
+            "title": $("#title").val(),
+            "content":filecontent,
+        };
+        $.ajax({
+            url:"note/update",
+            data:param,
+            type:"POST",
+            dataType:"json",
+            success:function (data) {
+                if(data>0){
+                    alert("修改成功");
+                    //window.location.reload();
+                }else {
+                    alert("新增失败,请稍后重试");
+                }
+            }
+        })
+    }
+
+    //删除弹窗
+    function Del() {
+        var noteid = $("#noteid").val();
+        layer.confirm("确认要删除吗，删除后不能恢复", {title: "删除确认"}, function (index) {
+            $.ajax({
+                type: "POST",
+                url: "/note/delete/"+noteid,
+                success: function (data) {
+                    if (data == 1) {
+                        layer.msg(obj.msg, {time: 1500}, function () {
+                        });
+                    } else {
+
+                    }
+                }
+            });
+            parent.document.location.reload()
+            layer.close(index);
+        })
+    }
+
+</script>
+<script th:src="@{layui.js}"></script>
+</body>
+</html>

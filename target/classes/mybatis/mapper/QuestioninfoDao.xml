@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.my.mapper.QuestioninfoMapper">
+
+    <insert id="addQuestion" parameterType="com.my.pojo.Questioninfo">
+        insert into questioninfo(userid,title,content,date) values(#{userid},#{title},#{content},#{date})
+    </insert>
+
+    <select id="findbyreply" resultType="com.my.pojo.Questioninfo">
+        select questionid,userid,title,content,date from questioninfo where reply = 0
+    </select>
+
+    <delete id="delQuestion">
+        delete from questioninfo where usermsgid = #{questionid}
+    </delete>
+
+    <update id="upateusermsg" parameterType="com.my.pojo.Questioninfo">
+        update questioninfo set reply = 0 where usermsgid = #{questionid}
+    </update>
+    
+    <select id="executeQuery">
+        select count(questionid) from questioninfo
+    </select>
+
+</mapper>

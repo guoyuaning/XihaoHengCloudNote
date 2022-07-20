@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>主页</title>
+    <link rel="stylesheet" th:href="@{/css/layui.css}">
+
+</head>
+<body>
+<br><br>
+
+<h1 class="site-h1">&nbsp; &nbsp; &nbsp; &nbsp; 开始使用 - 入门指南</h1><br>
+
+<hr class="layui-border-orange"><br>
+<blockquote class="site-text layui-elem-quote">
+    小珩云笔记(Xiaoheng cloud note),是一套网页在线编辑工具，内嵌UEditor开源富文本编辑器，前端采用了Layui的样式，
+    其风格简约轻盈，而组件优雅丰盈，从源代码到使用方法的每一处细节都经过精心雕琢，非常适合网页界面的快速使用。
+    样式丰富，添加了交流圈，方便资源分享。
+</blockquote>
+<p style="margin-bottom: 20px; text-align: center">
+    <img th:src="@{/image/logo.png}" tppabs="" style="width: 100%; max-width: 360px;">
+</p>
+
+<div class="layui-collapse">
+    <div class="layui-colla-item">
+        <h2 class="layui-colla-title">Layui</h2>
+        <div class="layui-colla-content layui-show">layui是面向于后端开发者，所
+            以在组织形式上毅然采用了几年前的以浏览器为宿主的类 AMD 模块管理方式，却又并非受限于
+            CommonJS 的那些条条框框，它拥有自己的模式，更加轻量和简单。layui 定义为“经典模块化”，
+            并非是刻意强调“模块”理念本身，而是有意避开当下 JS 社区的主流方案，试图以尽可能简单的方式
+            去诠释高效。它的所谓经典，是在于对返璞归真的执念，它以当前浏览器普通认可的方式去组织模块。
+            layui 认为这种轻量的组织方式，仍然可以填补 WebPack 以外的许多场景。所以它坚持采用经典模块
+            化，也正是能让人避开工具的复杂配置，重新回归到原生态的 HTML/CSS/JavaScript本身。 </div>
+    </div>
+    <div class="layui-colla-item">
+        <h2 class="layui-colla-title">UEditor</h2>
+        <div class="layui-colla-content layui-show">UEditor是由百度web前端研发部开发的所见即所得的开源富文本编辑器，
+            具有轻量、可定制、用户体验优秀等特点。基于MIT开源协议，所有源代码在协议允许范围内可自由修改和使用。百度UEditor的推出
+            ，可以帮助不少网站开发者在开发富文本编辑器所遇到的难题，节约开发者因开发富文本编辑器所需要的大量时间，
+            有效降低了企业的开发成本。</div>
+    </div>
+    <div class="layui-colla-item">
+        <h2 class="layui-colla-title">Swagger</h2>
+        <div class="layui-colla-content layui-show">Swagger是一款Restful接口的文档在线自动生成和功能测试功能软件。<br>
+            Swagger是一个规范和完整的框架，用于生成、描述、调用和可视化Restful风格的Web服务。总体目标是使客户端和文件系统
+            作为服务器以同样的速度来更新文件的方法，参数和模型紧密集成到服务器端的代码，允许API来始终保持同步。</div>
+    </div>
+    <div class="layui-colla-item">
+        <h2 class="layui-colla-title">Shiro</h2>
+        <div class="layui-colla-content layui-show">Swagger是一款Restful接口的文档在线自动生成和功能测试功能软件。<br>
+            Swagger是一个规范和完整的框架，用于生成、描述、调用和可视化Restful风格的Web服务。总体目标是使客户端和文件系统
+            作为服务器以同样的速度来更新文件的方法，参数和模型紧密集成到服务器端的代码，允许API来始终保持同步。</div>
+    </div>
+</div>
+
+<script>
+    //注意：折叠面板 依赖 element 模块，否则无法进行功能性操作
+    layui.use('element', function(){
+        var element = layui.element;
+
+        //…
+    });
+</script>
+
+<script th:src="@{/layui.js}"></script>
+</body>
+</html>

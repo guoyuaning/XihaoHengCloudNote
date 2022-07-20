@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.my.mapper.PackageinfoMapper">
+
+    <insert id="addPackage" parameterType="com.my.pojo.Packageinfo">
+        insert into packageinfo(userid,packagename,date) values(#{userid},#{packagename},#{date})
+    </insert>
+
+    <select id="findByUserid" resultType="com.my.pojo.Packageinfo">
+        select packageid,userid,packagename,secrecy,date from packageinfo where userid = #{userid}
+    </select>
+
+    <delete id="deletePackageById">
+        delete from packageinfo where packageid = #{packageid}
+    </delete>
+
+    <update id="updantePackage" parameterType="com.my.pojo.Packageinfo">
+        update packageinfo set packagename = #{packagename},secrecy = #{secrecy} where packageid = #{packageid}
+    </update>
+
+</mapper>

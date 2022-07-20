@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+        xmlns:shiro="http://www.thymeleaf.org/thymeleaf-extras-shiro">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>主页</title>
+    <link rel="shortcut" th:href="@{/image/logo.png}">
+    <link rel="stylesheet" th:href="@{/css/layui.css}">
+    <script type="text/javascript" th:src = "@{/js/jquery-3.4.1.js}"></script>
+    <script type="text/javascript">
+        $(document).ready(function (){
+            $("ul a").click(function (e){
+                e.preventDefault()
+                ${"#iframeMain"}.attr("src",$(this).attr("href"));
+            });
+        });
+        $(document).ready(function() {
+            $.ajax({
+                url : "note/findbypackage",//请求地址
+                dataType : "json",//数据格式
+                type : "post",//请求方式
+                async : false,//是否异步请求
+                success : function(data) {   //如何发送成功
+                    var html = "";
+                    for(var i=0;i<data.length;i++){    //遍历data数组
+                        var ls = data[i];
+                        html +="<li><a th:href='@{/note/show/(noteid=" + ")}' target='main_frame'>三级列表一</a></li>"
+                    }
+                    $("#olol").html(html); //在html页面id=ulul的标签里显示html内容
+                },
+            })
+        })
+
+    </script>
+    <style>
+        ol li a {
+            background-color: rgba(0,0,0,1) !important;
+        }
+
+        .three_this {
+            background-color: #808080 !important;
+        }
+
+    </style>
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-header">
+        <div class="layui-logo layui-hide-xs layui-bg-black">小珩云笔记</div>
+        <!-- 头部区域（可配合layui 已有的水平导航） -->
+        <ul class="layui-nav layui-layout-left">
+            <!-- 移动端显示 -->
+            <li class="layui-nav-item layui-show-xs-inline-block layui-hide-sm" lay-header-event="menuLeft">
+                <i class="layui-icon layui-icon-spread-left"></i>
+            </li>
+        </ul>
+        <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item layui-hide layui-show-md-inline-block">
+                <a href="javascript:;">
+                    <span id="username" class="name" th:text="${username}"></span>
+                </a>
+                <dl class="layui-nav-child">
+                    <dd><a th:href="@{tostarted}" target="main_frame">Your Profile</a></dd>
+                    <dd><a th:href="@{/usermsg/show}" target="main_frame">Settings</a></dd>
+                    <dd><a th:href="@{/exit}">Sign out</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item" lay-header-event="menuRight" lay-unselect>
+                <a href="javascript:;">
+                    <i class="layui-icon layui-icon-more-vertical"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="layui-side layui-bg-black">
+        <div class="layui-side-scroll">
+            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+            <ul class="layui-nav layui-nav-tree" lay-filter="test">
+                <div shiro:hasPermission="user">
+                <li class="layui-nav-item layui-nav-itemed">
+                    <a class="" href="javascript:;"><i class="layui-icon layui-icon-top"></i>官方文件</a>
+                    <dl class="layui-nav-child">
+                        <dd><a th:href="@{/tostarted}" target="main_frame"><i class="layui-icon layui-icon-triangle-r"></i>开始使用</a></dd>
+                        <dd><a onclick="func7();"><i class="layui-icon layui-icon-add-1"></i>新建笔记文件夹</a></dd>
+                        <dd><a onclick="func8()"><i class="layui-icon layui-icon-add-1"></i>新建笔记</a></dd>
+                    </dl>
+                </li>
+
+                <li class="layui-nav-item layui-nav-itemed">
+                    <a href="javascript:void(0)" onclick="Test()"><i class="layui-icon layui-icon-form"></i>我的笔记</a>
+                    <dl class="layui-nav-child">
+                        <div th:each="p:${list}">
+                            <dd>
+                                <a href="javascript:;" onclick="bftask(this)" class="menu_three " th:foole = "${p.packageid}">
+                                    <i class="layui-icon layui-icon-note"></i>
+                                    <span th:text="${p.packagename}"></span>
+                                </a>
+                                <ol id="olol" class="layui-nav-child" style="display: none;">
+                                    <span th:id="${p.packageid}" >
+                                    </span>
+                                </ol>
+                            </dd>
+                        </div>
+
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;"><i class="layui-icon layui-icon-star-fill"></i>我的收藏</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;"><i class="layui-icon layui-icon-star-fill"></i>list 1</a></dd>
+                        <dd><a href="javascript:;"><i class="layui-icon layui-icon-star-fill"></i>list 2</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item"><a th:href="@{/toShare}" target="main_frame"><i class="layui-icon layui-icon-group"></i>交流圈</a></li>
+                <li class="layui-nav-item"><a th:href="@{/toquestion}" target="main_frame"><i class="layui-icon layui-icon-chat"></i>问题反馈</a></li>
+                </div>
+                    <div shiro:hasPermission="admin">
+                    <li class="layui-nav-item layui-nav-itemed">
+                        <a class="" href="javascript:;"><i class="layui-icon layui-icon-top"></i>审核管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a th:href="@{/tostarted}" target="main_frame"><i class="layui-icon layui-icon-triangle-r"></i>开始使用</a></dd>
+                            <dd><a th:href="@{/admin/showQuestion}"><i class="layui-icon layui-icon-add-1"></i>用户反馈</a></dd>
+                            <dd><a onclick=""><i class="layui-icon layui-icon-add-1"></i>新建笔记</a></dd>
+                        </dl>
+                    </li>
+                </div>
+            </ul>
+        </div>
+    </div>
+
+    <div class="layui-body">
+        <!-- 内容主体区域 -->
+        <iframe id="iframeMain" th:src="@{/tostarted}" name="main_frame" src="" style="width: 100%;height: 100%";></iframe>
+    </div>
+    <div class="layui-footer">
+        <!-- 底部固定区域 -->
+        底部固定区域
+        <span id = "text">
+            <a th:href="@{/toquestion}" target="main_frame">一一一</a>
+        </span>
+    </div>
+</div>
+<script th:src="@{/layui.js}"></script>
+<script>
+    //JS
+    layui.use(['element', 'layer', 'util'], function(){
+        var element = layui.element
+            ,layer = layui.layer
+            ,util = layui.util
+            ,$ = layui.$;
+
+        //头部事件
+        util.event('lay-header-event', {
+            //左侧菜单事件
+            menuLeft: function(othis){
+                layer.msg('展开左侧菜单的操作', {icon: 0});
+            }
+            ,menuRight: function(){
+                layer.open({
+                    type: 1
+                    ,content: '<div style="padding: 15px;">处理右侧面板的操作</div>'
+                    ,area: ['260px', '100%']
+                    ,offset: 'rt' //右上角
+                    ,anim: 5
+                    ,shadeClose: true
+                });
+            }
+        });
+    });
+    function func7(){
+        //弹出层
+        layer.open({
+            type: 2,
+            area: ['350px', '300px'], //宽高
+            content: 'http://localhost:18099//toaddpackage', //调到新增页面
+            yes: function(index){
+                //当点击‘确定’按钮的时候，获取弹出层返回的值
+                var res = window["layui-layer-iframe" + index].callbackdata();
+                //打印返回的值，看是否有我们想返回的值。
+                console.log(res);
+                //最后关闭弹出层
+                layer.close(index);
+            },
+            cancel: function(){ //关闭弹窗后执行的操作
+                location.reload()   //执行刷新
+                //右上角关闭回调
+            }
+        });
+    }
+    function func8(){
+        //弹出层
+        layer.open({
+            type: 2,
+            area: ['450px', '550px'], //宽高
+            content: 'http://localhost:18099//toAddNote', //调到新增页面
+            yes: function(index){
+                //当点击‘确定’按钮的时候，获取弹出层返回的值
+                var res = window["layui-layer-iframe" + index].callbackdata();
+                //打印返回的值，看是否有我们想返回的值。
+                console.log(res);
+                //最后关闭弹出层
+                layer.close(index);
+            },
+            cancel: function(){ //关闭弹窗后执行的操作
+                location.reload()   //执行刷新
+                //右上角关闭回调
+            }
+        });
+    }
+    function Test() {
+        $.ajax({
+            url:"package/findall",
+            success:function(data){
+            },
+            error:function(){
+            },
+        });
+    }
+    layui.use(['element', 'jquery'], function () {
+        var element = layui.element, $ = layui.jquery;
+        $(".menu_three").on("click", function () {
+
+            $(this).next().toggle();
+            $.each($(this).parent().siblings(), function (i, e) {
+                $(e).find("ol").hide();;
+            });
+
+        })
+        $("ol").on("click", "li a", function () {
+            $.each($(this).parent().siblings(), function (i, e) {
+                $(e).find("a").removeClass('three_this')
+            });
+            $(this).addClass('three_this');                            // 添加当前元素的样式
+        })
+    });
+    //三级表单
+    function bftask(objInfo){
+        var foole= $(objInfo).attr("foole");
+        $.ajax({
+            url:"note/findbypackage?packageid="+foole,
+            async:false,
+            success:function(data){
+                var oul = document.getElementById(foole);
+                var html = '';
+                for (var i = 0 ; i < data.length;i++){
+                    html += '<li><a href="/note/show?noteid='+ data[i].noteid +'" target="main_frame"><i class="layui-icon layui-icon-file"></i>'+ data[i].title + '</a></li>';
+                }
+                oul.innerHTML = html;
+            },
+            error:function(){
+            },
+        });
+    }
+</script>
+</body>
+</html>

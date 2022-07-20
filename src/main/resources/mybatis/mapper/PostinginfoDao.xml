@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.my.mapper.PostinginfoMapper">
+
+    <insert id="addPosting" parameterType="com.my.pojo.Postinginfo">
+        insert into postinginfo(userid,username,date,content) values(#{username},#{packageid},#{date},#{content})
+    </insert>
+
+    <select id="findByUserid" resultType="com.my.pojo.Postinginfo">
+        select postingid,userid,username,date,content,good from postinginfo where userid = #{userid}
+    </select>
+
+    <delete id="delPosting">
+        delete from postinginfo where postingid = #{postingid}
+    </delete>
+
+    <update id="updatePosting" parameterType="com.my.pojo.Postinginfo">
+        update postinginfo set content = #{content} where postingif = #{postingif}
+    </update>
+    <update id="addGood">
+        update postinginfo set good=good+1 where postingid = #{postingid};
+    </update>
+</mapper>
