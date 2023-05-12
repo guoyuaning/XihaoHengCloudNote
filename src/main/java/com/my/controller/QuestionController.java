@@ -2,7 +2,10 @@ package com.my.controller;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.my.pojo.Questioninfo;
+import com.my.pojo.Rutil;
 import com.my.service.QuestioninfoService;
 import com.my.util.TimeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,52 +47,12 @@ public class QuestionController {
 
     @RequestMapping("/admin/selectAllQuestion")
     @ResponseBody
-    public String selectForQuestion(int page,int limit){
-        int counts = questioninfoService.executeQuery();//总条数
-        int startRow = (page - 1)*limit;//起始行
-        return "{\n" +
-                "\t\"msg\": \"操作成功！\",\n" +
-                "\t\"code\": \"0\",\n" +
-                "\t\"data\": [\n" +
-                "\t\t{\n" +
-                "\t\t\t\"id\": 1,\n" +
-                "\t\t\t\"name\": \"iPhone\",\n" +
-                "\t\t\t\"type\": \"1\",\n" +
-                "\t\t\t\"price\": 6000.0,\n" +
-                "\t\t\t\"size\": 55,\n" +
-                "\t\t\t\"status\": 1,\n" +
-                "\t\t\t\"description\": \"说明\"\n" +
-                "\t\t},\n" +
-                "\t\t{\n" +
-                "\t\t\t\"id\": 2,\n" +
-                "\t\t\t\"name\": \"watch\",\n" +
-                "\t\t\t\"type\": \"1\",\n" +
-                "\t\t\t\"price\": 500.0,\n" +
-                "\t\t\t\"size\": 35,\n" +
-                "\t\t\t\"status\": 1,\n" +
-                "\t\t\t\"description\": \"说明\"\n" +
-                "\t\t},\n" +
-                "\t\t{\n" +
-                "\t\t\t\"id\": 3,\n" +
-                "\t\t\t\"name\": \"television\",\n" +
-                "\t\t\t\"type\": \"1\",\n" +
-                "\t\t\t\"price\": 1000.0,\n" +
-                "\t\t\t\"size\": 90,\n" +
-                "\t\t\t\"status\": 1,\n" +
-                "\t\t\t\"description\": \"说明\"\n" +
-                "\t\t},\n" +
-                "\t\t{\n" +
-                "\t\t\t\"id\": 4,\n" +
-                "\t\t\t\"name\": \"computer\",\n" +
-                "\t\t\t\"type\": \"1\",\n" +
-                "\t\t\t\"price\": 4500.0,\n" +
-                "\t\t\t\"size\": 60,\n" +
-                "\t\t\t\"status\": 1,\n" +
-                "\t\t\t\"description\": \"说明\"\n" +
-                "\t\t}\n" +
-                "\t],\n" +
-                "\t\"count\": 4\n" +
-                "}";
+    public String selectForQuestion() throws JsonProcessingException {
+        int count = questioninfoService.executeQuery();//总条数行
+        List<Questioninfo> findbyreply = questioninfoService.findbyreply();
+        Rutil<Questioninfo> rutil = new Rutil(count,findbyreply);
+        ObjectMapper mapper = new ObjectMapper();
+        return mapper.writeValueAsString(rutil);
     }
 
 }

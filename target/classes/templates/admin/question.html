@@ -1,64 +1,80 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <title>table模块快速使用</title>
+    <title>问题反馈解答</title>
     <link rel="stylesheet" th:href="@{/css/layui.css}">
+    <script type="text/javascript" th:src = "@{/js/jquery-3.4.1.js}"></script>
 </head>
 <body>
-<table lay-filter="userlist-table" style="display: none;">
-
-    <thead>
-    <tr>
-        <th >序号</th>
-        <th >登录账号</th>
-        <th>用户名</th>
-        <th>权限</th>
-        <th>操作</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td>1</td>
-        <td>2</td>
-        <td>3</td>
-        <td>4</td>
-        <td>
-
-        </td>
-    </tr>
-    <tr>
-        <td>1</td>
-        <td>2</td>
-        <td>3</td>
-        <td>4</td>
-        <td>
-
-        </td>
-    </tr>
-    <tr>
-        <td>1</td>
-        <td>2</td>
-        <td>3</td>
-        <td>4</td>
-        <td>
-
-        </td>
-    </tr>
-    <tr>
-        <td>1</td>
-        <td>2</td>
-        <td>3</td>
-        <td>4</td>
-        <td>
-
-        </td>
-    </tr>
-</tbody>
-</table>
+<div style="padding: 16px;">
+    <table class="layui-hide" id="test" lay-filter="test"></table>
+</div>
 <script th:src="@{/layui.js}"></script>
 <script>
+    layui.use('table', function(){
+        var table = layui.table;
 
+        //第一个实例
+        table.render({
+            elem: '#test'
+            ,height: 600
+            ,url: '/admin/selectAllQuestion' //数据接口
+            ,page: true //开启分页
+            ,title: '学生信息'
+            ,cols: [
+                [ //表头
+                    {field: 'questionid', title: '问题反馈id', width:120, event: 'clos'}
+                    ,{field: 'userid', title: '用户id', width:100, event: 'clos'}
+                    ,{field: 'title', title: '标题', width:250, event: 'clos'}
+                    ,{field: 'content', title: '内容', width:300, event:'clos'}
+                    ,{field: 'date', title: '时间', width: 200, event: 'clos'}
+                    ,{field: 'reply', title: '回复', width: 100, event:'cols'}
+                    //,{field: 'toolbar', title: '工具栏', width: 170, toolbar: '#barDemo'}
+                ]
+            ]
+        });
+    });
+    // table.on('toolbar(test)', function(obj){
+    //     var checkStatus = table.checkStatus(obj.config.id);
+    //     switch(obj.event){
+    //         case 'getCheckData':
+    //             var data = checkStatus.data;
+    //             layer.alert(JSON.stringify(data));
+    //             break;
+    //         case 'getCheckLength':
+    //             var data = checkStatus.data;
+    //             layer.msg('选中了：'+ data.length + ' 个');
+    //             break;
+    //         case 'isAll':
+    //             layer.msg(checkStatus.isAll ? '全选': '未全选');
+    //             break;
+    //
+    //     };
+    // });
+    //
+    // //监听行工具事件
+    // table.on('tool(test)', function(obj){
+    //     var data = obj.data;
+    //     //console.log(obj)
+    //     if(obj.event === 'del'){
+    //         layer.confirm('真的删除行么', function(index){
+    //             obj.del();
+    //             layer.close(index);
+    //         });
+    //     } else if(obj.event === 'edit'){
+    //         layer.prompt({
+    //             formType: 2
+    //             ,value: data.email
+    //         }, function(value, index){
+    //             obj.update({
+    //                 email: value
+    //             });
+    //             layer.close(index);
+    //         });
+    //     }
+    // });
 </script>
+
 </body>
 </html>

@@ -121,8 +121,10 @@
                         <a class="" href="javascript:;"><i class="layui-icon layui-icon-top"></i>审核管理</a>
                         <dl class="layui-nav-child">
                             <dd><a th:href="@{/tostarted}" target="main_frame"><i class="layui-icon layui-icon-triangle-r"></i>开始使用</a></dd>
-                            <dd><a th:href="@{/admin/showQuestion}"><i class="layui-icon layui-icon-add-1"></i>用户反馈</a></dd>
-                            <dd><a onclick=""><i class="layui-icon layui-icon-add-1"></i>新建笔记</a></dd>
+                            <dd><a th:href="@{/admin/showNote}" target="main_frame"><i class="layui-icon layui-icon-group"></i>笔记发表审核</a></dd>
+                            <dd><a th:href="@{/admin/showReview}" target="main_frame"><i class="layui-icon layui-icon-add-1"></i>恶意评论审核</a></dd>
+                            <dd><a th:href="@{/admin/showQuestion}" target="main_frame"><i class="layui-icon layui-icon-add-1"></i>问题反馈解答</a></dd>
+                            <dd><a th:href="@{/admin/showHistory}" target="main_frame"><i class="layui-icon layui-icon-add-1"></i>审核记录</a></dd>
                         </dl>
                     </li>
                 </div>
@@ -143,7 +145,9 @@
     </div>
 </div>
 <script th:src="@{/layui.js}"></script>
+
 <script>
+    console.log("你好")
     //JS
     layui.use(['element', 'layer', 'util'], function(){
         var element = layui.element

@@ -1,76 +1,31 @@
 package com.my.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.Date;
+
 /**
  * @Classname Usermsginfo
  * @Description TODO
  * @Date 2022/4/16 20:20
  * @Created by GuoYuan
  */
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Packageinfo {
     private int packageid;
     private String packagename;
     private int userid;
     private int secrecy;
-    private String date;
     private int order;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    private Date createtime;//创建时间
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    private Date updatetime;//创建时间
 
-    public int getPackageid() {
-        return packageid;
-    }
 
-    public void setPackageid(int packageid) {
-        this.packageid = packageid;
-    }
-
-    public String getPackagename() {
-        return packagename;
-    }
-
-    public void setPackagename(String packagename) {
-        this.packagename = packagename;
-    }
-
-    public int getUserid() {
-        return userid;
-    }
-
-    public void setUserid(int userid) {
-        this.userid = userid;
-    }
-
-    public int getSecrecy() {
-        return secrecy;
-    }
-
-    public void setSecrecy(int secrecy) {
-        this.secrecy = secrecy;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public int getOrder() {
-        return order;
-    }
-
-    public void setOrder(int order) {
-        this.order = order;
-    }
-
-    @Override
-    public String toString() {
-        return "Packageinfo{" +
-                "packageid=" + packageid +
-                ", packagename='" + packagename + '\'' +
-                ", userid=" + userid +
-                ", secrecy=" + secrecy +
-                ", date='" + date + '\'' +
-                ", order='" + order + '\'' +
-                '}';
-    }
 }

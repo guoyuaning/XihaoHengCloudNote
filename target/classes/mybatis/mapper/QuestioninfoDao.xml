@@ -20,8 +20,9 @@
         update questioninfo set reply = 0 where usermsgid = #{questionid}
     </update>
     
-    <select id="executeQuery">
+    <select id="executeQuery" resultType="java.lang.Integer">
         select count(questionid) from questioninfo
     </select>
+
 
 </mapper>

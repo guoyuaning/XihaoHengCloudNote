@@ -1,11 +1,21 @@
 package com.my.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.Date;
+
 /**
  * @Classname postinginfo
  * @Description TODO
  * @Date 2022/5/15 16:55
  * @Created by GuoYuan
  */
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Postinginfo {
     private int postingid;
     private int userid;
@@ -13,64 +23,9 @@ public class Postinginfo {
     private String date;
     private String content;
     private int good;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    private Date createtime;//创建时间
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    private Date updatetime;//创建时间
 
-    public int getPostingid() {
-        return postingid;
-    }
-
-    public void setPostingid(int postingid) {
-        this.postingid = postingid;
-    }
-
-    public int getUserid() {
-        return userid;
-    }
-
-    public void setUserid(int userid) {
-        this.userid = userid;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public int getGood() {
-        return good;
-    }
-
-    public void setGood(int good) {
-        this.good = good;
-    }
-
-    @Override
-    public String toString() {
-        return "postinginfo{" +
-                "postingid=" + postingid +
-                ", userid=" + userid +
-                ", username='" + username + '\'' +
-                ", date='" + date + '\'' +
-                ", content='" + content + '\'' +
-                ", good=" + good +
-                '}';
-    }
 }

@@ -10,7 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="xiaohengnote" target="11" />
+      <module name="xiaohengnote" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">

@@ -24,4 +24,5 @@ public interface QuestioninfoMapper {
     int delQuestion(int questionid);
     int reply(int questionid);
     int executeQuery();
+
 }

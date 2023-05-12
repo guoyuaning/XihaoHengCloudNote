@@ -1,60 +1,24 @@
 package com.my.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Userinfo {
     private Integer userid;
     private String username;
     private String password;
     private String email;
     private String perms;
-    public Integer getUserid() {
-        return userid;
-    }
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    private Date createtime;//创建时间
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    private Date updatetime;//创建时间
 
-    public void setUserid(Integer userid) {
-        this.userid = userid;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPerms() {
-        return perms;
-    }
-
-    public void setPerms(String perms) {
-        this.perms = perms;
-    }
-
-    @Override
-    public String toString() {
-        return "Userinfo{" +
-                "userid=" + userid +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                ", perms='" + perms + '\'' +
-                '}';
-    }
 }
